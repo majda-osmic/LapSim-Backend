@@ -21,9 +21,11 @@ namespace LapSimBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin()));
+
             services.Configure<LapSimDatabaseSettings>(Configuration.GetSection(nameof(LapSimDatabaseSettings)));
 
-            services.AddSingleton<ILapSimDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<LapSimDatabaseSettings>>().Value);
+            services.AddSingleton<ILapSimDatabaseSettings>(sp => sp.GetRequiredService<IOptions<LapSimDatabaseSettings>>().Value);
 
             services.AddSingleton<AccountsService>();
 
