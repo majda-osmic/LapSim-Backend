@@ -6,10 +6,9 @@ namespace LapSimBackend.Services
     public interface ITeamsService
     {
         Team Create(Team team);
-        List<Team> Get();
+        IEnumerable<Team> Get();
         Team Get(string id);
-        void Remove(string id);
-        void Remove(Team teamIn);
+        void Remove(string id);                   
         void Update(string id, Team teamIn);
     }
 }

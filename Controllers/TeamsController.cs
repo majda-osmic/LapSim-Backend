@@ -3,6 +3,7 @@ using LapSimBackend.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LapSimBackend.Controllers
 {
@@ -12,15 +13,19 @@ namespace LapSimBackend.Controllers
     public class TeamsController : ControllerBase
     {
         private readonly ITeamsService _teamsService;
+        private readonly IProjectLeadersService _projectLeadersService;
 
-        public TeamsController(ITeamsService teamsService)
+
+        public TeamsController(ITeamsService teamsService, IProjectLeadersService projectLeadersService)
         {
             _teamsService = teamsService;
+            _projectLeadersService = projectLeadersService;
         }
 
         [HttpGet]
         public ActionResult<List<Team>> Get() =>
-            _teamsService.Get();
+            _teamsService.Get().ToList();
+
 
         [HttpGet("{id:length(24)}", Name = "GetTeam")]
         public ActionResult<Team> Get(string id)

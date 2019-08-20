@@ -16,7 +16,7 @@ namespace LapSimBackend.Services
             _teams = database.GetCollection<Team>(settings.TeamsCollectionName);
         }
 
-        public List<Team> Get() =>
+        public IEnumerable<Team> Get() =>
             _teams.Find(team => true).ToList();
 
         public Team Get(string id) =>

@@ -28,6 +28,7 @@ namespace LapSimBackend
             services.AddSingleton<ILapSimDatabaseSettings>(sp => sp.GetRequiredService<IOptions<LapSimDatabaseSettings>>().Value);
 
             services.AddSingleton<ITeamsService, TeamsService>();
+            services.AddSingleton<IProjectLeadersService, ProjectLeadersService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
