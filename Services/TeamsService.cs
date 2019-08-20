@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LapSimBackend.Services
 {
-    public class TeamsService
+    public class TeamsService : ITeamsService
     {
         private readonly IMongoCollection<Team> _teams;
 

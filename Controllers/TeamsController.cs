@@ -11,11 +11,11 @@ namespace LapSimBackend.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        private readonly TeamsService _teamsService;
+        private readonly ITeamsService _teamsService;
 
-        public TeamsController(TeamsService accountsService)
+        public TeamsController(ITeamsService teamsService)
         {
-            _teamsService = accountsService;
+            _teamsService = teamsService;
         }
 
         [HttpGet]
