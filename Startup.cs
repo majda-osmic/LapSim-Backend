@@ -1,5 +1,6 @@
 ﻿using LapSimBackend.Models;
 using LapSimBackend.Services;
+using LapSimBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,8 @@ namespace LapSimBackend
 
             services.AddSingleton<ITeamsService, TeamsService>();
             services.AddSingleton<IProjectLeadersService, ProjectLeadersService>();
+            services.AddSingleton<ISimulationsService, SimulationsService>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

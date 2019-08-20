@@ -1,4 +1,5 @@
 ﻿using LapSimBackend.Models;
+using LapSimBackend.Services.Interfaces;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,7 @@ using System.Linq;
 namespace LapSimBackend.Services
 {
 
-    public interface IProjectLeadersService
-    {
-        ProjectLeader Create(ProjectLeader leader);
-        IEnumerable<ProjectLeader> Get();
-        bool Exists(string userName);
-        ProjectLeader Get(string userName);
-        void Delete(string userName);
-        void Update(string id, ProjectLeader projectLeaderIn);
-    }
-
+ 
     public class ProjectLeadersService : IProjectLeadersService
     {
         private readonly IMongoCollection<ProjectLeader> _projectLeaders;

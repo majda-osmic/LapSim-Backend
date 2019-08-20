@@ -1,5 +1,6 @@
 ﻿using LapSimBackend.Models;
 using LapSimBackend.Services;
+using LapSimBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace LapSimBackend.Controllers
     {
         private readonly ITeamsService _teamsService;
         private readonly IProjectLeadersService _projectLeadersService;
-
 
         public TeamsController(ITeamsService teamsService, IProjectLeadersService projectLeadersService)
         {

@@ -1,5 +1,6 @@
 ﻿using LapSimBackend.Models;
 using LapSimBackend.Services;
+using LapSimBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;

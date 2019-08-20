@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using LapSimBackend.Models;
 
-namespace LapSimBackend.Services
+namespace LapSimBackend.Services.Interfaces
 {
     public interface ITeamsService
     {
