@@ -1,61 +1,63 @@
 ﻿using LapSimBackend.Models;
 using LapSimBackend.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace LapSimBackend.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class TeamsController : ControllerBase
     {
-        private readonly AccountsService _accountsService;
+        private readonly TeamsService _teamsService;
 
-        public AccountsController(AccountsService accountsService)
+        public TeamsController(TeamsService accountsService)
         {
-            _accountsService = accountsService;
+            _teamsService = accountsService;
         }
 
         [HttpGet]
-        public ActionResult<List<Account>> Get() =>
-            _accountsService.Get();
+        public ActionResult<List<Team>> Get() =>
+            _teamsService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetAccount")]
-        public ActionResult<Account> Get(string id)
+        [HttpGet("{id:length(24)}", Name = "GetTeam")]
+        public ActionResult<Team> Get(string id)
         {
-            var account = _accountsService.Get(id);
+            var teams = _teamsService.Get(id);
 
-            if (account == null)
+            if (teams == null)
             {
                 return NotFound();
             }
 
-            return account;
+            return teams;
         }
 
         [HttpPost]
-        public ActionResult<Account> Create(Account account)
+        public ActionResult<Team> Create(Team team)
         {
-            _accountsService.Create(account);
+            _teamsService.Create(team);
 
             //Calls CreatedAtRoute in the Create action method to return an HTTP 201 response.
             //Status code 201 is the standard response for an HTTP POST method that creates a new resource on the server.
             //CreatedAtRoute also adds a Location header to the response.
             //The Location header specifies the URI of the newly created book.
-            return CreatedAtRoute("GetAccount", new { id = account.Id.ToString() }, account);
+            return CreatedAtRoute("GetTeam", new { id = team.Id.ToString() }, team);
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Account accountIn)
+        public IActionResult Update(string id, Team teamIn)
         {
-            var account = _accountsService.Get(id);
+            var account = _teamsService.Get(id);
 
             if (account == null)
             {
                 return NotFound();
             }
 
-            _accountsService.Update(id, accountIn);
+            _teamsService.Update(id, teamIn);
 
             return NoContent();
         }
@@ -63,14 +65,14 @@ namespace LapSimBackend.Controllers
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {
-            var account = _accountsService.Get(id);
+            var account = _teamsService.Get(id);
 
             if (account == null)
             {
                 return NotFound();
             }
 
-            _accountsService.Remove(account.Id);
+            _teamsService.Remove(account.Id);
 
             return NoContent();
         }
