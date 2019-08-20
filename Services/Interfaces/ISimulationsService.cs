@@ -8,6 +8,8 @@ namespace LapSimBackend.Services.Interfaces
 {
     public interface ISimulationsService
     {
+        Simulation Get(string id);
         List<Simulation> Get();
+        List<Simulation> GetByAccount(string accountId);
     }
 }

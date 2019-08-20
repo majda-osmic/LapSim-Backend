@@ -1,7 +1,6 @@
 ﻿using LapSimBackend.Models;
 using LapSimBackend.Services.Interfaces;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 
 namespace LapSimBackend.Services
@@ -17,6 +16,16 @@ namespace LapSimBackend.Services
             _simulationsCollection = database.GetCollection<Simulation>(settings.SimulationsCollectionName);
         }
 
-        public List<Simulation> Get() => _simulationsCollection.Find(_ => true).ToList();
+      
+        public List<Simulation> Get()
+                =>   _simulationsCollection.Find(_ => true).ToList();
+
+        public Simulation Get(string id)
+               => _simulationsCollection.Find(item => item.Id == id).FirstOrDefault();
+
+
+        public List<Simulation> GetByAccount(string accountId)
+        => _simulationsCollection.Find(item => item.AccountId == accountId).ToList();
+
     }
 }
