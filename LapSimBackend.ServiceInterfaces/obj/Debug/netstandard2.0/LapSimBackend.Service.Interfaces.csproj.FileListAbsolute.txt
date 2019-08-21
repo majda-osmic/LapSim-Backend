@@ -1,0 +1,12 @@
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\bin\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.deps.json
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\bin\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.dll
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\bin\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.pdb
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.csprojAssemblyReference.cache
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.csproj.CoreCompileInputs.cache
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.AssemblyInfoInputs.cache
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.AssemblyInfo.cs
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.csproj.CopyComplete
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.dll
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\obj\Debug\netstandard2.0\LapSimBackend.Service.Interfaces.pdb
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\bin\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.dll
+E:\dev\MyProjects\LapSimBackend\LapSimBackend.ServiceInterfaces\bin\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.pdb
