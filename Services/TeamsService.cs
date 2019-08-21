@@ -23,6 +23,10 @@ namespace LapSimBackend.Services
         public Team Get(string id) =>
             _teams.Find(team => team.Id == id).FirstOrDefault();
 
+        public IEnumerable<Team> Get(IEnumerable<string> ids)
+            => _teams.Find(team => ids.Contains(team.Id)).ToList();
+
+
         public Team Create(Team team)
         {
             _teams.InsertOne(team);

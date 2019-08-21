@@ -40,6 +40,26 @@ namespace LapSimBackend.Controllers
             return teams;
         }
 
+
+        [HttpGet("pl/{userName}")]
+        public ActionResult<List<Team>> GetByProjectLeader(string userName)
+        {
+            var pl = _projectLeadersService.Get(userName);
+            if (pl?.Teams == null)
+            {
+                return NotFound();
+            }
+            var teamIds = pl.Teams.Select(item => item?.ToString());
+            var teams = _teamsService.Get(teamIds);
+
+            if (teams == null)
+            {
+                return NotFound();
+            }
+
+            return teams.ToList();
+        }
+
         [HttpPost]
         public ActionResult<Team> Create(Team team)
         {
