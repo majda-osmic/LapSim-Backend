@@ -17,8 +17,7 @@ namespace LapSimBackend.MongoDb.Model
         public IEnumerable<Budget> Budgets { get; set; }
 
 
-        [BsonElement("SoftwarePackages")]
-        public IEnumerable<SoftwarePackage> Pacakges { get; set; }
+
 
     }
 }

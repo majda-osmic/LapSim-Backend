@@ -7,11 +7,15 @@ namespace LapSimBackend.MongoDb.Model
 {
     public class Account : IAccount
     {
+        [BsonElement("UniqueName")]
         public string UniqueName { get; set; }
         public string Name { get; set; }
 
         [BsonElement("CPUS")]
         public int CPUs { get; set; }
+
+        [BsonElement("SoftwarePackages")]
+        public IEnumerable<SoftwarePackage> Pacakges { get; set; }
 
     }
 }

@@ -27,7 +27,7 @@ namespace LapSimBackend.MongoDb.Services
             _projectLeaders.CountDocuments(item => item.Id == userName) == 1;
 
         public IEnumerable<IProjectLeader> Get() =>
-            _projectLeaders.Find(_ => true).ToList().Select(item => item as IProjectLeader);
+            _projectLeaders.Find(_ => true).ToList().Select(item => Convert(item));
 
 
         public IProjectLeader Get(string userName)
@@ -44,7 +44,7 @@ namespace LapSimBackend.MongoDb.Services
             return new Data.Interfaces.Implementations.ProjectLeader()
             {
                 UserName = raw.Id,
-                Teams = raw.Teams.Select(item => item?.ToString())
+                Teams = raw.Teams?.Select(item => item?.ToString()) ?? new List<string>()
             };
         }
     }
