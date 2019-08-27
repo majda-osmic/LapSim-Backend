@@ -15,9 +15,5 @@ namespace LapSimBackend.MongoDb.Model
         public IEnumerable<Account> Accounts { get; set; }
 
         public IEnumerable<Budget> Budgets { get; set; }
-
-
-
-
     }
 }

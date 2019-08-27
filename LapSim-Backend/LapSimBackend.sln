@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LapSimBackend", "LapSimBackend.csproj", "{A8A70501-432A-4E80-84FF-5B85B2C2D1F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LapSimBackend.Service.Interfaces", "..\LapSimBackend.ServiceInterfaces\LapSimBackend.Service.Interfaces.csproj", "{78B8A531-1C74-4CB3-9AC5-ADA8F88657A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LapSimBackend.Service.Interfaces", "..\LapSimBackend.ServiceInterfaces\LapSimBackend.Service.Interfaces.csproj", "{78B8A531-1C74-4CB3-9AC5-ADA8F88657A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LapSimBackend.Data.Interfaces", "..\LapSimBackend.Data.Interfaces\LapSimBackend.Data.Interfaces.csproj", "{A08E494D-AC97-459D-BEB2-9DC6A48D97D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LapSimBackend.Data.Interfaces", "..\LapSimBackend.Data.Interfaces\LapSimBackend.Data.Interfaces.csproj", "{A08E494D-AC97-459D-BEB2-9DC6A48D97D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LapSimBackend.MongoDb", "..\LapSimBackend.MongoDb\LapSimBackend.MongoDb.csproj", "{D498DE3F-6B6F-470C-AE06-75529E8E7CC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LapSimBackend.MongoDb", "..\LapSimBackend.MongoDb\LapSimBackend.MongoDb.csproj", "{D498DE3F-6B6F-470C-AE06-75529E8E7CC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LapSimBackend.Utils", "..\LapSimBackend.Utils\LapSimBackend.Utils.csproj", "{F201D678-9B9D-4533-B7BF-5A628AFA4666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D498DE3F-6B6F-470C-AE06-75529E8E7CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D498DE3F-6B6F-470C-AE06-75529E8E7CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D498DE3F-6B6F-470C-AE06-75529E8E7CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F201D678-9B9D-4533-B7BF-5A628AFA4666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F201D678-9B9D-4533-B7BF-5A628AFA4666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F201D678-9B9D-4533-B7BF-5A628AFA4666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F201D678-9B9D-4533-B7BF-5A628AFA4666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

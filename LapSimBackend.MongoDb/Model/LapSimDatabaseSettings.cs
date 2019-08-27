@@ -2,6 +2,7 @@
 {
     public interface ILapSimDatabaseSettings
     {
+        string UserCollectionName { get; set; }
         string TeamsCollectionName { get; set; }
         string ProjectLeadersCollectionName { get; set; }
         string SimulationsCollectionName { get; set; }
@@ -16,5 +17,6 @@
         public string SimulationsCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public string UserCollectionName { get; set; }
     }
 }

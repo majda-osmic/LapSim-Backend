@@ -1,5 +1,6 @@
 ﻿using LapSimBackend.Data.Interfaces;
 using LapSimBackend.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.Linq;
 
 namespace LapSimBackend.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class TeamsController : ControllerBase

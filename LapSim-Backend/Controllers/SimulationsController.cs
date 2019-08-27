@@ -1,12 +1,12 @@
 ﻿using LapSimBackend.Data.Interfaces;
 using LapSimBackend.Services.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LapSimBackend.Controllers
 {
-    [Microsoft.AspNetCore.Cors.EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class SimulationsController : ControllerBase

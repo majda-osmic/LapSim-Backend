@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace LapSimBackend.Data.Interfaces
 {
     public interface ISimulation
     {
         string AccountId { get; set; }
+
+        [JsonProperty(PropertyName = "cpus")]
         int CPUs { get; set; }
         DateTime EndTime { get; set; }
         string Id { get; set; }
