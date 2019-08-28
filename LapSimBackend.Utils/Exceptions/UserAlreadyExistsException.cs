@@ -6,7 +6,7 @@ namespace LapSimBackend.Utils.Exceptions
 {
     public class UserAlreadyExistsException : AppException
     {
-        public UserAlreadyExistsException() : base("User with the same User Name already exists")
+        public UserAlreadyExistsException(string userName) : base($"User '{userName}' already exists")
         {
 
         }

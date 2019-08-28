@@ -28,16 +28,18 @@ namespace LapSimBackend.MongoDb.Services
 
             var savedHash = HashHelper.ComputeHash(password, Convert.FromBase64String(user.PasswordSalt));
             if (!Convert.ToBase64String(savedHash).Equals(user.PasswordHash))
-                return true;
+                return false;
 
             return true;
         }
 
         public IUser Create(string userName, string password)
         {
+            //TODO: validate strings
+
             if (_userCollection.Find(item => item.Username.Equals(userName)).Any())
             {
-                throw new UserAlreadyExistsException();
+                throw new UserAlreadyExistsException(userName);
             }
 
             var salt = HashHelper.GenerateSalt();
