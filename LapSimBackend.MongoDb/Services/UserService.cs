@@ -1,11 +1,12 @@
 ﻿using LapSimBackend.Data.Interfaces;
+using LapSimBackend.Data.Interfaces.Implementations;
 using LapSimBackend.MongoDb.Model;
 using LapSimBackend.Service.Interfaces;
 using LapSimBackend.Utils.Exceptions;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace LapSimBackend.MongoDb.Services
 {
@@ -20,17 +21,21 @@ namespace LapSimBackend.MongoDb.Services
             _userCollection = database.GetCollection<User>(settings.UserCollectionName);
         }
 
-        public bool Authenticate(string userName, string password)
+        public IAuthenticatedUser Authenticate(string userName, string password)
         {
             var user = _userCollection.Find(dbUser => dbUser.Username == userName).FirstOrDefault();
             if (user == null)
                 throw new KeyNotFoundException($"User {userName} does not exist");
+            
+            if(!PasswordsMatch(password, user))
+                return null;
 
-            var savedHash = HashHelper.ComputeHash(password, Convert.FromBase64String(user.PasswordSalt));
-            if (!Convert.ToBase64String(savedHash).Equals(user.PasswordHash))
-                return false;
 
-            return true;
+            return new AuthenticatedUser()
+            {
+                Username = user.Username,
+                Role = Role.FromString(user.Role)
+            };
         }
 
         public IUser Create(string userName, string password)
@@ -55,6 +60,13 @@ namespace LapSimBackend.MongoDb.Services
             _userCollection.InsertOne(user);
 
             return user;
+        }
+
+
+        private bool PasswordsMatch(string password, User user)
+        {
+            var savedHash = HashHelper.ComputeHash(password, Convert.FromBase64String(user.PasswordSalt));
+            return Convert.ToBase64String(savedHash).Equals(user.PasswordHash);
         }
     }
 }

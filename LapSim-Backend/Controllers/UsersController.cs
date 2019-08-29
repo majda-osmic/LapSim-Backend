@@ -3,7 +3,12 @@ using LapSimBackend.Service.Interfaces;
 using LapSimBackend.Utils.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace LapSimBackend.Controllers
 {
@@ -12,9 +17,13 @@ namespace LapSimBackend.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
-        public UsersController(IUserService service)
+
+        private AppSettings _appSettings;
+
+        public UsersController(IUserService service, IOptions<AppSettings> settings)
         {
             _userService = service;
+            _appSettings = settings.Value;
 
             //TODO: store secrets: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=windows
         }
@@ -24,16 +33,36 @@ namespace LapSimBackend.Controllers
         public IActionResult Authenticate([FromBody]User userParam)
         {
             try //TODO: try - catch app exceptions in one place
-            { 
-                if (!_userService.Authenticate(userParam.UserName, userParam.Password))
-                return BadRequest(new { message = "Username or password is incorrect" });
+            {
+                var user = _userService.Authenticate(userParam.UserName, userParam.Password);
+                if (user == null)
+                    return BadRequest(new { message = "Username or password is incorrect" });
+
+                //https://jasonwatmore.com/post/2019/01/08/aspnet-core-22-role-based-authorization-tutorial-with-example-api
+                // authentication successful so generate jwt token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, user.Username.ToString()),
+                        new Claim(ClaimTypes.Role, user.Role.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                user.Token = tokenHandler.WriteToken(token);
+
+                return Ok(user);
+
             }
-            catch(AppException ex)
+            catch (AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
-
-            return Ok();
         }
 
         [AllowAnonymous]
