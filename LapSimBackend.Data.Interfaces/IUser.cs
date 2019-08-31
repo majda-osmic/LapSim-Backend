@@ -11,31 +11,38 @@ namespace LapSimBackend.Data.Interfaces
 
     public interface IAuthenticatedUser : IUser
     {
-        Role Role { get; set; }
+        UserRole Role { get; set; }
         string Token { get; set; }
     }
 
-    public class Role
+
+    public static class Role
     {
-        public static readonly Role Admin = new Role("Admin");
-        public static readonly Role ProjectLeader = new Role("ProjectLeader");
+        public const string Admin = "Admin";
+        public const string ProjectLeader = "ProjectLeader";
+    }
 
-        private readonly string _role;
+    public class UserRole
+    {
+        public static readonly UserRole Admin = new UserRole(Role.Admin);
+        public static readonly UserRole ProjectLeader = new UserRole(Role.ProjectLeader);
 
-        public string Value => _role.ToString();
 
-        private Role(string role)
+        //for serialization
+        public string Value { get; }
+
+        private UserRole(string role)
         {
-            _role = role; 
+            Value = role; 
         }
 
-        public override string ToString() => _role;
+        public override string ToString() => Value;
 
-        public static Role FromString(string role)
+        public static UserRole FromString(string role)
         {
-            if (role?.ToLower().Equals("admin") ?? false)
-                return Role.Admin;
-            return Role.ProjectLeader;
+            if (role?.ToLower().Equals(Role.Admin.ToLower()) ?? false)
+                return UserRole.Admin;
+            return UserRole.ProjectLeader;
         }
     }
 

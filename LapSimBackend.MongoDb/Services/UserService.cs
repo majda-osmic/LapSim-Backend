@@ -34,7 +34,7 @@ namespace LapSimBackend.MongoDb.Services
             return new AuthenticatedUser()
             {
                 Username = user.Username,
-                Role = Role.FromString(user.Role)
+                Role = UserRole.FromString(user.Role)
             };
         }
 

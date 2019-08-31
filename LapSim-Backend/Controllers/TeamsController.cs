@@ -10,6 +10,7 @@ namespace LapSimBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TeamsController : ControllerBase
     {
         private readonly ITeamsService _teamsService;
@@ -22,14 +23,16 @@ namespace LapSimBackend.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = Role.Admin)]
         public ActionResult<IEnumerable<ITeam>> Get() =>
            Ok(_teamsService.Get());
 
 
         [HttpGet("{id:length(24)}", Name = "GetTeam")]
+        //only if logged in user is pl with the team?
         public ActionResult<ITeam> Get(string id)
         {
-            var teams = _teamsService.Get(id);
+            var teams = _teamsService.Get(id); 
 
             if (teams == null)
             {
@@ -41,6 +44,7 @@ namespace LapSimBackend.Controllers
 
 
         [HttpGet("pl/{userName}")]
+        [Authorize(Roles = Role.Admin)]         //alsof if logged in user is pl with the team ??
         public ActionResult<IEnumerable<ITeam>> GetByProjectLeader(string userName)
         {
             var pl = _projectLeadersService.Get(userName);
@@ -87,6 +91,7 @@ namespace LapSimBackend.Controllers
         //}
 
         [HttpDelete("{id:length(24)}")]
+        [Authorize(Roles = Role.Admin)]
         public IActionResult Delete(string id)
         {
             var account = _teamsService.Get(id);
