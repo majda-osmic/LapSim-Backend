@@ -23,7 +23,7 @@ namespace LapSimBackend.MongoDb.Services
 
         public IAuthenticatedUser Authenticate(string userName, string password)
         {
-            var user = _userCollection.Find(dbUser => dbUser.Username == userName).FirstOrDefault();
+            var user = _userCollection.Find(dbUser => dbUser.UserName == userName).FirstOrDefault();
             if (user == null)
                 throw new KeyNotFoundException($"User {userName} does not exist");
             
@@ -33,7 +33,7 @@ namespace LapSimBackend.MongoDb.Services
 
             return new AuthenticatedUser()
             {
-                Username = user.Username,
+                UserName = user.UserName,
                 Role = UserRole.FromString(user.Role)
             };
         }
@@ -42,7 +42,7 @@ namespace LapSimBackend.MongoDb.Services
         {
             //TODO: validate strings
 
-            if (_userCollection.Find(item => item.Username.Equals(userName)).Any())
+            if (_userCollection.Find(item => item.UserName.Equals(userName)).Any())
             {
                 throw new UserAlreadyExistsException(userName);
             }
@@ -52,7 +52,7 @@ namespace LapSimBackend.MongoDb.Services
 
             var user = new User()
             {
-                Username = userName,
+                UserName = userName,
                 PasswordHash = Convert.ToBase64String(hash),
                 PasswordSalt = Convert.ToBase64String(salt)
             };

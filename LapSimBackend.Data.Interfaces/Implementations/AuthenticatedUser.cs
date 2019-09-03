@@ -9,6 +9,6 @@ namespace LapSimBackend.Data.Interfaces.Implementations
     {
         public UserRole Role { get; set; }
         public string Token { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
     }
 }

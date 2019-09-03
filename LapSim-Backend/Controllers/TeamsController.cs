@@ -43,8 +43,7 @@ namespace LapSimBackend.Controllers
         }
 
 
-        [HttpGet("pl/{userName}")]
-        [Authorize(Roles = Role.Admin)]         //alsof if logged in user is pl with the team ??
+        [HttpGet("pl/{userName}")] //only of the user name is the logged in user
         public ActionResult<IEnumerable<ITeam>> GetByProjectLeader(string userName)
         {
             var pl = _projectLeadersService.Get(userName);

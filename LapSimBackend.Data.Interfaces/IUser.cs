@@ -6,7 +6,7 @@ namespace LapSimBackend.Data.Interfaces
 {
     public interface IUser
     {
-        string Username { get; set; }
+        string UserName { get; set; }
     }
 
     public interface IAuthenticatedUser : IUser
