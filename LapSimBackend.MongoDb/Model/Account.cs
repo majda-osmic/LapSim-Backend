@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LapSimBackend.MongoDb.Model
 {
-    public class Account : IAccount
+    public class Account : IAccountInfo
     {
         [BsonElement("UniqueName")]
         public string UniqueName { get; set; }
@@ -15,7 +15,8 @@ namespace LapSimBackend.MongoDb.Model
         public int CPUs { get; set; }
 
         [BsonElement("SoftwarePackages")]
-        public IEnumerable<SoftwarePackage> Pacakges { get; set; }
+        public IEnumerable<SoftwarePackage> Packages { get; set; }
+
 
     }
 }

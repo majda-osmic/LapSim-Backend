@@ -1,9 +1,0 @@
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\bin\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.deps.json
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\bin\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.dll
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\bin\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.pdb
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\obj\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.csprojAssemblyReference.cache
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\obj\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.csproj.CoreCompileInputs.cache
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\obj\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.AssemblyInfoInputs.cache
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\obj\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.AssemblyInfo.cs
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\obj\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.dll
-E:\dev\MyProjects\LapSimBackend\LapSimBackend.Data.Interfaces\obj\Debug\netstandard2.0\LapSimBackend.Data.Interfaces.pdb

@@ -2,7 +2,7 @@
 
 namespace LapSimBackend.Data.Interfaces
 {
-    public interface IAccount
+    public interface IAccountInfo
     {
         [JsonProperty(PropertyName = "id")]
         string UniqueName { get; set; }
@@ -13,6 +13,12 @@ namespace LapSimBackend.Data.Interfaces
         [JsonProperty(PropertyName = "cpus")]
         int CPUs { get; set; }
 
-        //ISoftwarePackage Package { get; set; }
+
+    }
+
+    public interface IAccountDetail : IAccountInfo
+    {
+        [JsonProperty(PropertyName = "softwarePackage")]
+        ISoftwarePackage Package { get; set; }
     }
 }

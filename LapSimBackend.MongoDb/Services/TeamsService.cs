@@ -37,21 +37,35 @@ namespace LapSimBackend.MongoDb.Services
         private ITeam Convert(Team rawTeam)
         {
             var accountIds = rawTeam.Accounts?.Select(account => account.UniqueName);
-            // TODO: select only budget info????
+            // TODO: select only within correct budget info????
             var rawSimulations = _simulations.Find(item => accountIds.Contains(item.AccountId));
+
+            var accounts = rawTeam.Accounts.Select(item =>
+            {
+                //https://stackoverflow.com/questions/3188693/how-can-i-get-linq-to-return-the-object-which-has-the-max-value-for-a-given-prop
+                var latestPackage = item.Packages.Aggregate((i1, i2) => i1.TimeStamp > i2.TimeStamp ? i1 : i2);
+                return new Data.Interfaces.Imlementations.Account(item)
+                {
+                    Package = new Data.Interfaces.Implementations.SoftwarePacakge()
+                    {
+                        Software = latestPackage.Software,
+                        TimeStamp = latestPackage.TimeStamp
+                    }
+                };
+            });
 
             return new Data.Interfaces.Implementations.Team()
             {
                 Id = rawTeam.Id,
                 Budget = rawTeam.Budgets.Sum(item => item.Units), //TODO: filter out the Expired ones,
                 UsedBudget = rawSimulations?.ToList().Sum(item => item.UsedBudget) ?? 0,
-                Accounts = rawTeam.Accounts,
+                Accounts = accounts,
                 Name = rawTeam.Name
             };
         }
 
         public IEnumerable<ITeam> Get(IEnumerable<string> ids) => _teams.Find(item => ids.Contains(item.Id)).ToList().Select(item => Convert(item));
-        
+
 
         public void Remove(ITeam teamIn) =>
             _teams.DeleteOne(team => team.Id == teamIn.Id);
@@ -59,7 +73,7 @@ namespace LapSimBackend.MongoDb.Services
         public void Remove(string id) =>
             _teams.DeleteOne(team => team.Id == id);
 
-      
+
     }
 }
 
