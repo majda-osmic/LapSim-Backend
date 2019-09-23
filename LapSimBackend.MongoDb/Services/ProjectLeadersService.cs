@@ -1,23 +1,29 @@
 ﻿using LapSimBackend.Data.Interfaces;
 using LapSimBackend.MongoDb.Model;
 using LapSimBackend.Service.Interfaces;
+using LapSimBackend.Services.Interfaces;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LapSimBackend.MongoDb.Services
 {
 
- 
+
     public class ProjectLeadersService : IProjectLeadersService
     {
         private readonly IMongoCollection<Model.ProjectLeader> _projectLeaders;
+        private readonly ITeamsService _teamsService;
+        private readonly ISimulationsService _simulationsService;
 
-        public ProjectLeadersService(ILapSimDatabaseSettings settings)
+        public ProjectLeadersService(ILapSimDatabaseSettings settings, ITeamsService teamService, ISimulationsService simService)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             _projectLeaders = database.GetCollection<Model.ProjectLeader>(settings.ProjectLeadersCollectionName);
+            _teamsService = teamService;
+            _simulationsService = simService;
         }
         public void Delete(string userName) =>
             _projectLeaders.DeleteOne(leader => leader.Id == userName);
@@ -46,6 +52,26 @@ namespace LapSimBackend.MongoDb.Services
                 UserName = raw.Id,
                 Teams = raw.Teams?.Select(item => item?.ToString()) ?? new List<string>()
             };
+        }
+
+        public bool CanUserAccessAccount(string userName, string accountId)
+        {
+            return GetAllowedAccounts(userName).Any(account => account.UniqueName.Equals(accountId));
+        }
+
+
+        private IEnumerable<IAccountDetail> GetAllowedAccounts(string userName)
+        {
+            try
+            {
+                var pl = Get(userName);
+                return _teamsService.Get(pl.Teams).SelectMany(team => team.Accounts);
+            }
+            catch(Exception e)
+            {
+                //TODO: log me
+                return Enumerable.Empty<IAccountDetail>();
+            }
         }
     }
 }

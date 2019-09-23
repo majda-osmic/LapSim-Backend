@@ -8,6 +8,7 @@ namespace LapSimBackend.Service.Interfaces
         IEnumerable<IProjectLeader> Get();
         bool Exists(string userName);
         IProjectLeader Get(string userName);
+        bool CanUserAccessAccount(string userName, string accountId);
         void Delete(string userName);
     }
 }
