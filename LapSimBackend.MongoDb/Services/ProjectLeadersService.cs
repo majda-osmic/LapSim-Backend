@@ -54,7 +54,7 @@ namespace LapSimBackend.MongoDb.Services
             };
         }
 
-        public bool CanUserAccessAccount(string userName, string accountId)
+        public bool UserManagesAccount(string userName, string accountId)
         {
             return GetAllowedAccounts(userName).Any(account => account.UniqueName.Equals(accountId));
         }

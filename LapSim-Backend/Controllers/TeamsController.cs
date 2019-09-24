@@ -1,7 +1,6 @@
 ﻿using LapSimBackend.Data.Interfaces;
 using LapSimBackend.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +28,15 @@ namespace LapSimBackend.Controllers
 
 
         [HttpGet("{id:length(24)}", Name = "GetTeam")]
-        //only if logged in user is pl with the team?
         public ActionResult<ITeam> Get(string id)
         {
-            var teams = _teamsService.Get(id); 
+            var pl = _projectLeadersService.Get(User.Identity.Name); //TODO: caching
+            if (!User.IsInRole(Role.Admin) && !pl.Teams.Contains(id))
+            {
+                return Forbid();
+            }
 
+            var teams = _teamsService.Get(id);
             if (teams == null)
             {
                 return NotFound();
@@ -43,10 +46,16 @@ namespace LapSimBackend.Controllers
         }
 
 
-        [HttpGet("pl/{userName}")] //only of the user name is the logged in user
+        [HttpGet("pl/{userName}")]
         public ActionResult<IEnumerable<ITeam>> GetByProjectLeader(string userName)
         {
+            if (!User.IsInRole(Role.Admin) && !User.Identity.Name.Equals(userName))
+            {
+                return Forbid();
+            }
+
             var pl = _projectLeadersService.Get(userName);
+
             if (pl?.Teams == null)
             {
                 return NotFound();

@@ -64,7 +64,7 @@ namespace LapSimBackend.Controllers
 
         private bool CanCurrentUserAccessAccount(string accountId)
         {
-            return User.IsInRole(Role.Admin) || _projectLeadersService.CanUserAccessAccount(User.Identity.Name, accountId);
+            return User.IsInRole(Role.Admin) || _projectLeadersService.UserManagesAccount(User.Identity.Name, accountId);
         }
     }
 }
