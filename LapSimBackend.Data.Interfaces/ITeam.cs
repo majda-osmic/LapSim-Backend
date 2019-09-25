@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LapSimBackend.Data.Interfaces.Imlementations;
+using System.Collections.Generic;
 
 namespace LapSimBackend.Data.Interfaces
 {
@@ -6,7 +7,7 @@ namespace LapSimBackend.Data.Interfaces
     {
         string Id { get; set; }
         string Name { get; set; }
-        IEnumerable<IAccountDetail> Accounts { get; set; }
+        IEnumerable<IAccount> Accounts { get; set; }
         int Budget { get; set; }
         int UsedBudget { get; set; }
     }

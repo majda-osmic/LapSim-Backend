@@ -17,9 +17,9 @@ namespace LapSimBackend.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
-        private AppSettings _appSettings;
+        private readonly AppSettings _appSettings;
 
         public UsersController(IUserService service, IOptions<AppSettings> settings)
         {

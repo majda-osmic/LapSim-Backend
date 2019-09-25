@@ -15,15 +15,13 @@ namespace LapSimBackend.MongoDb.Services
     {
         private readonly IMongoCollection<Model.ProjectLeader> _projectLeaders;
         private readonly ITeamsService _teamsService;
-        private readonly ISimulationsService _simulationsService;
 
-        public ProjectLeadersService(ILapSimDatabaseSettings settings, ITeamsService teamService, ISimulationsService simService)
+        public ProjectLeadersService(ILapSimDatabaseSettings settings, ITeamsService teamService)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             _projectLeaders = database.GetCollection<Model.ProjectLeader>(settings.ProjectLeadersCollectionName);
             _teamsService = teamService;
-            _simulationsService = simService;
         }
         public void Delete(string userName) =>
             _projectLeaders.DeleteOne(leader => leader.Id == userName);
@@ -56,11 +54,11 @@ namespace LapSimBackend.MongoDb.Services
 
         public bool UserManagesAccount(string userName, string accountId)
         {
-            return GetAllowedAccounts(userName).Any(account => account.UniqueName.Equals(accountId));
+            return GetAllowedAccounts(userName).Any(account => account.Id.Equals(accountId));
         }
 
 
-        private IEnumerable<IAccountDetail> GetAllowedAccounts(string userName)
+        private IEnumerable<IAccount> GetAllowedAccounts(string userName)
         {
             try
             {
@@ -70,7 +68,7 @@ namespace LapSimBackend.MongoDb.Services
             catch(Exception e)
             {
                 //TODO: log me
-                return Enumerable.Empty<IAccountDetail>();
+                return Enumerable.Empty<IAccount>();
             }
         }
     }

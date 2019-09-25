@@ -44,9 +44,12 @@ namespace LapSimBackend.MongoDb.Services
             {
                 //https://stackoverflow.com/questions/3188693/how-can-i-get-linq-to-return-the-object-which-has-the-max-value-for-a-given-prop
                 var latestPackage = item.Packages.Aggregate((i1, i2) => i1.TimeStamp > i2.TimeStamp ? i1 : i2);
-                return new Data.Interfaces.Imlementations.Account(item)
+                return new Data.Interfaces.Imlementations.Account()
                 {
-                    Package = new Data.Interfaces.Implementations.SoftwarePacakge()
+                    CPUs = item.CPUs,
+                    Name = item.Name,
+                    Id = item.UniqueName,
+                    SoftwarePacakge = new Data.Interfaces.Implementations.SoftwarePacakge()
                     {
                         Software = latestPackage.Software,
                         TimeStamp = latestPackage.TimeStamp

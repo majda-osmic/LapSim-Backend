@@ -17,21 +17,19 @@ namespace LapSimBackend.MongoDb.Services
 
         internal static byte[] GenerateSalt(int saltByteSize = SaltByteSize)
         {
-            using (RNGCryptoServiceProvider saltGenerator = new RNGCryptoServiceProvider())
-            {
-                byte[] salt = new byte[saltByteSize];
-                saltGenerator.GetBytes(salt);
-                return salt;
-            }
+            using RNGCryptoServiceProvider saltGenerator = new RNGCryptoServiceProvider();
+            byte[] salt = new byte[saltByteSize];
+            saltGenerator.GetBytes(salt);
+            return salt;
         }
 
         internal static byte[] ComputeHash(string password, byte[] salt, int iterations = HasingIterationsCount, int hashByteSize = HashByteSize)
         {
-            using (Rfc2898DeriveBytes hashGenerator = new Rfc2898DeriveBytes(password, salt))
+            using Rfc2898DeriveBytes hashGenerator = new Rfc2898DeriveBytes(password, salt)
             {
-                hashGenerator.IterationCount = iterations;
-                return hashGenerator.GetBytes(hashByteSize);
-            }
+                IterationCount = iterations
+            };
+            return hashGenerator.GetBytes(hashByteSize);
         }
     }
 

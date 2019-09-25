@@ -2,23 +2,15 @@
 
 namespace LapSimBackend.Data.Interfaces
 {
-    public interface IAccountInfo
+    public interface IAccount
     {
-        [JsonProperty(PropertyName = "id")]
-        string UniqueName { get; set; }
+        string Id { get; set; }
 
-        [JsonProperty(PropertyName = "name")]
         string Name { get; set; }
 
-        [JsonProperty(PropertyName = "cpus")]
         int CPUs { get; set; }
 
+        ISoftwarePackage SoftwarePacakge { get; set; }
 
-    }
-
-    public interface IAccountDetail : IAccountInfo
-    {
-        [JsonProperty(PropertyName = "softwarePackage")]
-        ISoftwarePackage Package { get; set; }
     }
 }

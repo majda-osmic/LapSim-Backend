@@ -10,7 +10,7 @@ namespace LapSimBackend.Data.Interfaces.Implementations
         public string Name { get; set; }
         public int Budget { get; set; }
         public int UsedBudget { get; set; }
-        public IEnumerable<IAccountDetail> Accounts { get; set; }
+        public IEnumerable<IAccount> Accounts { get; set; }
 
     }
 }
