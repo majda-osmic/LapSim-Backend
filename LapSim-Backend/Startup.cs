@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -28,7 +29,11 @@ namespace LapSimBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddControllersAsServices();
+
+
             services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin()));
+
 
             services.Configure<LapSimDatabaseSettings>(Configuration.GetSection(nameof(LapSimDatabaseSettings)));
 
@@ -37,6 +42,7 @@ namespace LapSimBackend
             services.AddSingleton<ITeamsService, TeamsService>();
             services.AddSingleton<IProjectLeadersService, ProjectLeadersService>();
             services.AddSingleton<ISimulationsService, SimulationsService>();
+
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -63,23 +69,18 @@ namespace LapSimBackend
             IdentityModelEventSource.ShowPII = true;
             services.AddScoped<IUserService, UserService>();
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+           // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+
 
             // global cors policy
             app.UseCors(x => x
@@ -87,11 +88,19 @@ namespace LapSimBackend
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseAuthentication();
-
-
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute(); // Map conventional MVC controllers using the default route
+
+            });
         }
 
     }
